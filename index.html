@@ -1,0 +1,1347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vie Mentorship , Creating a Pathway to the Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ══════════════════════════════════════
+     RESET & BASE
+  ══════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:       #080808;
+    --surface:     #111111;
+    --surface-2:   #191919;
+    --border:      rgba(255,255,255,0.06);
+    --orange:      #E87722;
+    --orange-dim:  #B85E18;
+    --orange-glow: rgba(232,119,34,0.15);
+    --cream:       #F0E6D3;
+    --cream-dim:   #C8B89A;
+    --white:       #FFFFFF;
+    --text-muted:  rgba(240,230,211,0.45);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--orange); color: var(--black); }
+
+  /* ══════════════════════════════════════
+     SCROLLBAR
+  ══════════════════════════════════════ */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--orange-dim); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+  * { scrollbar-width: thin; scrollbar-color: var(--orange-dim) var(--black); }
+
+  /* ══════════════════════════════════════
+     NAV
+  ══════════════════════════════════════ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: linear-gradient(180deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0) 100%);
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.3s, background 0.3s;
+  }
+
+  nav.scrolled {
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .logo-blend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+
+  .nav-logo img {
+    width: 92px;
+    height: 78px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 18px rgba(232,119,34,0.28));
+    background: transparent;
+  }
+
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .nav-logo-text .primary {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo-text .secondary {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--orange);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+    transform-origin: left;
+  }
+
+  .nav-links a:hover { color: var(--cream); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--orange);
+    color: var(--orange) !important;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-size: 11px !important;
+    letter-spacing: 0.14em !important;
+    transition: background 0.2s, color 0.2s !important;
+    cursor: pointer;
+  }
+
+  .nav-cta:hover {
+    background: var(--orange) !important;
+    color: var(--black) !important;
+  }
+
+  .nav-cta::after { display: none !important; }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .hero {
+    position: relative;
+    min-height: 109vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 100px 40px 80px;
+  }
+
+  /* Ambient radial glow behind logo */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -54%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(232,119,34,0.12) 0%, rgba(232,119,34,0.04) 40%, transparent 70%);
+    pointer-events: none;
+    animation: breathe 5s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.7; transform: translate(-50%, -54%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -54%) scale(1.08); }
+  }
+
+  /* Fine grid overlay */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transform: translateY(34px);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-logo {
+    width: min(480px, 78vw);
+    height: auto;
+    object-fit: contain;
+    filter:
+      drop-shadow(0 0 28px rgba(232,119,34,0.32))
+      drop-shadow(0 34px 80px rgba(0,0,0,0.72));
+    margin-bottom: 34px;
+    opacity: 0;
+    animation: fadeUp 1s 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--orange);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream-dim);
+    letter-spacing: 0.04em;
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--black);
+    border: none;
+    padding: 14px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #f08830;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(232,119,34,0.35);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid var(--border);
+    padding: 14px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--cream-dim);
+    color: var(--white);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 1.4s forwards;
+    z-index: 2;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--orange) 0%, transparent 100%);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════════════════════════════════════
+     SECTION SHARED
+  ══════════════════════════════════════ */
+  section {
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--orange);
+  }
+
+  .section-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--cream-dim);
+    max-width: 560px;
+  }
+
+  /* ══════════════════════════════════════
+     ABOUT / INTRO STRIP
+  ══════════════════════════════════════ */
+  .intro {
+    padding: 120px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .intro-visual {
+    position: relative;
+  }
+
+  .intro-visual-box {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .intro-visual-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--orange-glow) 0%, transparent 60%);
+  }
+
+  .convener-card {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .convener-photo-wrap {
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .convener-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 58% 42%;
+    filter: saturate(0.82) contrast(1.08) brightness(0.78);
+  }
+
+  .convener-photo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 35%, rgba(8,8,8,0.42) 100%),
+      radial-gradient(circle at 18% 16%, rgba(232,119,34,0.18), transparent 35%);
+    pointer-events: none;
+  }
+
+  .convener-details {
+    padding: 28px 32px 32px;
+    border-top: 1px solid var(--border);
+    background: rgba(17,17,17,0.86);
+  }
+
+  .convener-kicker {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+
+  .convener-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.2vw, 42px);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .convener-title {
+    color: var(--cream-dim);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .convener-note {
+    max-width: 430px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .intro-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 36px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--cream-dim);
+    background: var(--surface);
+  }
+
+  .pill .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  /* ══════════════════════════════════════
+     WHAT YOU'LL GAIN , FOCUS AREAS
+  ══════════════════════════════════════ */
+  .focus {
+    padding: 120px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .focus-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+
+  .focus-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .focus-card {
+    background: var(--surface-2);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .focus-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .focus-card:hover { background: #1e1e1e; }
+  .focus-card:hover::before { transform: scaleX(1); }
+
+  .focus-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .focus-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .focus-card-body {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--cream-dim);
+  }
+
+  .focus-card-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ══════════════════════════════════════
+     WHO CAN APPLY
+  ══════════════════════════════════════ */
+  .eligibility {
+    padding: 120px 0;
+  }
+
+  .eligibility-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .elig-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 48px 44px;
+    position: relative;
+  }
+
+  .elig-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: rgba(232,119,34,0.08);
+    line-height: 1;
+    position: absolute;
+    top: 28px; right: 32px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .elig-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .elig-body {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--cream-dim);
+    max-width: 400px;
+  }
+
+  .elig-badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 5px 12px;
+    background: var(--orange-glow);
+    border: 1px solid rgba(232,119,34,0.3);
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  /* ══════════════════════════════════════
+     PROCESS TIMELINE
+  ══════════════════════════════════════ */
+  .process {
+    padding: 120px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 72px;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 12.5%; right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--orange), var(--orange-dim), var(--orange));
+    opacity: 0.3;
+  }
+
+  .step {
+    padding: 0 24px;
+    position: relative;
+  }
+
+  .step-dot {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--black);
+    border: 1px solid var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-dot-inner {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .step-body {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--cream-dim);
+  }
+
+  /* ══════════════════════════════════════
+     CYCLE / APPLICATIONS
+  ══════════════════════════════════════ */
+  .cycle {
+    padding: 120px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .cycle-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .cycle-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 40px;
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: pulse 2s infinite;
+  }
+
+  .cycle .section-title { max-width: 520px; margin: 0 auto 20px; }
+  .cycle .section-body { margin: 0 auto 48px; max-width: 520px; text-align: center; }
+
+  .notify-form {
+    display: flex;
+    gap: 0;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .notify-input {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--cream);
+    padding: 14px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    border-radius: 2px 0 0 2px;
+    transition: border-color 0.2s;
+  }
+
+  .notify-input:focus { border-color: rgba(232,119,34,0.5); }
+  .notify-input::placeholder { color: var(--text-muted); font-size: 13px; }
+
+  .notify-btn {
+    background: var(--orange);
+    color: var(--black);
+    border: none;
+    padding: 14px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0 2px 2px 0;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .notify-btn:hover { background: #f08830; }
+
+  /* ══════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════ */
+  footer {
+    padding: 88px 0 34px;
+    border-top: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.018), transparent 28%),
+      radial-gradient(circle at 16% 8%, rgba(232,119,34,0.16), transparent 30%),
+      var(--black);
+  }
+
+  .footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: grid;
+    grid-template-columns: minmax(360px, 1fr) minmax(320px, 0.58fr);
+    gap: 64px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-logo img {
+    width: 96px;
+    filter: drop-shadow(0 0 18px rgba(232,119,34,0.24));
+  }
+
+  .footer-logo-text .primary {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+
+  .footer-logo-text .secondary {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-top: 4px;
+  }
+
+  .footer-text {
+    max-width: 440px;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--cream-dim);
+    line-height: 1.8;
+  }
+
+  .footer-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin-top: 30px;
+    list-style: none;
+  }
+
+  .footer-menu a {
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-menu a:hover {
+    color: var(--cream-dim);
+  }
+
+  .footer-contact {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.01));
+  }
+
+  .footer-contact h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 20px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .footer-contact a {
+    display: flex;
+    align-items: center;
+    margin-top: 13px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .footer-contact a:hover {
+    color: var(--cream-dim);
+    transform: translateX(2px);
+  }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 18px;
+    margin-top: 18px;
+  }
+
+  .social-links a {
+    margin-top: 0;
+    color: var(--orange);
+  }
+
+  .social-links a:hover {
+    color: var(--cream);
+    transform: translateX(0);
+  }
+
+  .footer-copy {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 34px;
+    margin-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ══════════════════════════════════════
+     SCROLL REVEAL
+  ══════════════════════════════════════ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════ */
+  @media (max-width: 900px) {
+    nav {
+      position: absolute;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 14px;
+      padding: 16px 24px;
+      background: linear-gradient(180deg, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.62) 100%);
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+      width: 100%;
+    }
+    .nav-links a {
+      font-size: 10px;
+    }
+    .nav-cta {
+      padding: 7px 14px;
+    }
+    .section-inner { padding: 0 24px; }
+    .intro-grid, .cert-grid, .focus-header { grid-template-columns: 1fr; gap: 48px; }
+    .focus-cards { grid-template-columns: 1fr; }
+    .eligibility-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .footer-inner { grid-template-columns: 1fr; gap: 34px; padding: 0 24px; }
+    .footer-copy { flex-direction: column; }
+    .hero { min-height: 100vh; }
+    .hero-content { transform: translateY(54px); }
+  }
+
+  @media (max-width: 560px) {
+    nav { padding: 14px 18px; }
+    .nav-logo img { width: 70px; height: 60px; }
+    .nav-logo-text .primary { font-size: 12px; }
+    .hero {
+      padding: 150px 20px 80px;
+    }
+    .hero-content { transform: translateY(34px); }
+    .hero-logo { width: min(360px, 86vw); }
+    .hero-eyebrow {
+      font-size: 10px;
+      line-height: 1.8;
+      margin-bottom: 26px;
+    }
+    .hero-title {
+      font-size: clamp(38px, 13vw, 56px);
+    }
+    .hero-actions {
+      width: 100%;
+      max-width: 320px;
+      flex-direction: column;
+    }
+    .btn-primary,
+    .btn-ghost {
+      width: 100%;
+      text-align: center;
+    }
+    .notify-form {
+      width: 100%;
+      flex-direction: column;
+    }
+    .notify-input {
+      border-right: 1px solid var(--border);
+      border-radius: 2px 2px 0 0;
+    }
+    .notify-btn {
+      border-radius: 0 0 2px 2px;
+    }
+    .footer-logo { flex-direction: column; }
+    .footer-menu { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ═══════════════════════════ -->
+<nav id="nav">
+    <a href="#" class="nav-logo">
+    <span class="logo-blend"><img src="assets/tvm-logo-transparent.png" alt="TVM Logo"></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#focus">Programme</a></li>
+    <li><a href="#apply">Apply</a></li>
+        <li><a href="#apply" class="nav-cta">Get Notified</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Entertainment Law Mentorship · Music &amp; Film</p>
+    <img class="hero-logo" src="assets/tvm-logo-transparent.png" alt="The Vie Mentorship">
+    <h1 class="hero-title">The <em>Vie</em> Mentorship</h1>
+    <p class="hero-subtitle">Creating a pathway to the future</p>
+    <div class="hero-actions">
+      <a href="#apply" class="btn-primary">Get Notified</a>
+      <a href="#about" class="btn-ghost">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ INTRO ══════════════════════════ -->
+<section class="intro" id="about">
+  <div class="section-inner">
+    <div class="intro-grid">
+      <div class="intro-visual">
+        <div class="intro-visual-box">
+          <div class="convener-card">
+            <div class="convener-photo-wrap">
+              <img class="convener-photo" src="assets/victor-ime-ekpo.jpeg" alt="Victor Ime Ekpo">
+            </div>
+            <div class="convener-details">
+              <p class="convener-kicker">Convener</p>
+              <h3 class="convener-name">Victor Ime Ekpo</h3>
+              <p class="convener-title">Founder &amp; Convener, The Vie Mentorship</p>
+              <p class="convener-note">
+                Victor started The Vie Mentorship 3 years ago to create a pathway for young lawyers interested in music, film, and entertainment law.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="intro-text reveal">
+        <p class="section-label">About TVM</p>
+        <h2 class="section-title">Law meets <em>art.</em><br>We bridge the gap.</h2>
+        <p class="section-body">
+          The Vie Mentorship is a structured, cycle-based mentorship programme for aspiring and early-stage entertainment lawyers across Nigeria and Africa.
+          <br><br>
+          We pair penultimate and final-year law students , and young lawyers within their first two years post-call , with experienced practitioners in Music and Film law, equipping them with the knowledge and networks to build meaningful careers at the intersection of creativity and law.
+        </p>
+        <div class="intro-pills">
+          <span class="pill"><span class="dot"></span>Music Law</span>
+          <span class="pill"><span class="dot"></span>Film Law</span>
+          <span class="pill"><span class="dot"></span>Nigeria &amp; Africa</span>
+          <span class="pill"><span class="dot"></span>Fixed Cycle Schedule</span>
+          <span class="pill"><span class="dot"></span>Verifiable Certificates</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOCUS AREAS ══════════════════ -->
+<section class="focus" id="focus">
+  <div class="section-inner">
+    <div class="focus-header">
+      <div class="reveal">
+        <p class="section-label">The Programme</p>
+        <h2 class="section-title">What you'll <em>learn</em></h2>
+      </div>
+      <div class="reveal">
+        <p class="section-body">Each cycle is a deep-dive into the practical realities of entertainment law , from drafting contracts to understanding rights clearance and industry deal structures.</p>
+      </div>
+    </div>
+    <div class="focus-cards">
+      <div class="focus-card reveal">
+        <span class="focus-icon">🎵</span>
+        <div class="focus-card-title">Music Law</div>
+        <p class="focus-card-body">Explore recording contracts, publishing agreements, royalties, sync licensing, neighbouring rights, and the evolving landscape of streaming and digital distribution.</p>
+        <span class="focus-card-tag">Core Focus</span>
+      </div>
+      <div class="focus-card reveal">
+        <span class="focus-icon">🎬</span>
+        <div class="focus-card-title">Film & Screen Law</div>
+        <p class="focus-card-body">Navigate co-production deals, chain of title, clearances, talent agreements, distribution contracts, and financing structures in the African film industry.</p>
+        <span class="focus-card-tag">Core Focus</span>
+      </div>
+      <div class="focus-card reveal">
+        <span class="focus-icon">⚖️</span>
+        <div class="focus-card-title">Practical Skills</div>
+        <p class="focus-card-body">Contract drafting, negotiation techniques, IP registration, dispute resolution, and career navigation , built for the realities of practice in Nigeria and across Africa.</p>
+        <span class="focus-card-tag">Applied Learning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ELIGIBILITY ══════════════════ -->
+<section class="eligibility" id="eligibility">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Who Can Apply</p>
+      <h2 class="section-title">Built for <em>emerging</em> voices in entertainment law</h2>
+    </div>
+    <div class="eligibility-grid">
+      <div class="elig-card reveal">
+        <div class="elig-number">01</div>
+        <div class="elig-title">Law Students</div>
+        <p class="elig-body">Penultimate and final-year law students with a strong interest in entertainment, media, and the creative industries. Applications are open to students across Nigeria and Africa.</p>
+        <span class="elig-badge">Penultimate &amp; Final Year</span>
+      </div>
+      <div class="elig-card reveal">
+        <div class="elig-number">02</div>
+        <div class="elig-title">Young Lawyers</div>
+        <p class="elig-body">Called to bar lawyers within 0-2 years post-call who are looking to specialise in or transition into entertainment law. Whether in practice or employed, you are welcome here.</p>
+        <span class="elig-badge">0 - 2 Years Post-Call</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══════════════════════ -->
+<section class="process" id="process">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center; margin-bottom: 0;">
+      <p class="section-label" style="justify-content:center;">How It Works</p>
+      <h2 class="section-title" style="text-align:center;">The TVM <em>cycle</em></h2>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-dot"><div class="step-dot-inner"></div></div>
+        <div class="step-title">Applications Open</div>
+        <p class="step-body">Each cycle's application window is announced in advance. Dates are fixed and publicised , watch this space or join the notification list.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot"><div class="step-dot-inner"></div></div>
+        <div class="step-title">Selection</div>
+        <p class="step-body">Up to 50 mentees are selected per cycle. Applications are reviewed holistically , your enthusiasm and goals matter as much as your background.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot"><div class="step-dot-inner"></div></div>
+        <div class="step-title">The Programme</div>
+        <p class="step-body">Structured sessions covering Music and Film law, led by practising entertainment lawyers. Mentorship, community, and real learning , together.</p>
+      </div>
+      <div class="step reveal" id="certification">
+        <div class="step-dot"><div class="step-dot-inner"></div></div>
+        <div class="step-title">Certification</div>
+        <p class="step-body">Graduates receive a verifiable digital certificate from The Vie Mentorship , a credential you can share, and anyone can verify instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CERTIFICATE ══════════════════ -->
+<!-- ══ APPLICATIONS / NOTIFY ════════ -->
+<section class="cycle" id="apply">
+  <div class="cycle-inner">
+    <div class="cycle-status reveal">
+      <div class="status-dot"></div>
+      Applications not yet open
+    </div>
+    <h2 class="section-title reveal">The next cycle is <em>coming.</em></h2>
+    <p class="section-body reveal">Application windows are announced per cycle. Drop your email and we'll let you know the moment applications open , no spam, just the signal.</p>
+    <div class="notify-form reveal">
+      <input class="notify-input" type="email" placeholder="your@email.com">
+      <button class="notify-btn">Notify Me</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">
+        <img src="assets/tvm-logo-transparent.png" alt="TVM logo">
+        <div class="footer-logo-text">
+          <div class="primary">The Vie Mentorship</div>
+          <div class="secondary">Creating a pathway to the future</div>
+        </div>
+      </div>
+      <p class="footer-text">
+        A premium mentorship experience built for clarity, discipline,
+        leadership, and visible personal growth.
+      </p>
+      <ul class="footer-menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#focus">Programme</a></li>
+        <li><a href="#apply">Apply</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <a href="mailto:viementorship@gmail.com">viementorship@gmail.com</a>
+      <div class="social-links" aria-label="Social links">
+        <a href="https://www.instagram.com/viementorship" target="_blank" rel="noopener">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+    <p class="footer-copy" id="admin">
+      <span>© 2026 The Vie Mentorship</span>
+      <span>Designed for excellence, accountability, and proof of growth.</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(r => observer.observe(r));
+  // Fallback: trigger visible on scroll in case observer fires late
+  window.addEventListener('scroll', () => {
+    reveals.forEach(r => {
+      const rect = r.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 40) {
+        r.classList.add('visible');
+      }
+    });
+  }, { passive: true });
+
+  // Notify form
+  document.querySelector('.notify-btn').addEventListener('click', () => {
+    const input = document.querySelector('.notify-input');
+    if (input.value && input.value.includes('@')) {
+      input.value = '';
+      input.placeholder = "You're on the list ✓";
+      input.style.borderColor = 'rgba(74,222,128,0.4)';
+    } else {
+      input.style.borderColor = 'rgba(232,119,34,0.6)';
+      input.placeholder = 'Please enter a valid email';
+    }
+  });
+  }); // DOMContentLoaded
+</script>
