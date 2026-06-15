@@ -36,7 +36,10 @@
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
   }
+
+  img, iframe { max-width: 100%; }
 
   ::selection { background: var(--orange); color: var(--black); }
 
@@ -518,7 +521,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 58% 42%;
+    object-position: 50% 22%;
     filter: saturate(0.82) contrast(1.08) brightness(0.78);
   }
 
@@ -1063,7 +1066,7 @@
   /* ══════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════ */
-  @media (max-width: 900px) {
+  @media (max-width: 1024px), (max-device-width: 1024px) {
     nav {
       position: fixed;
       align-items: center;
@@ -1190,7 +1193,7 @@
     .hero-content { transform: translateY(54px); }
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 1024px), (max-device-width: 600px) {
     nav { padding: 12px 18px; }
     .nav-logo img { width: 58px; height: 50px; }
     .nav-logo-text .primary { font-size: 12px; }
@@ -1210,7 +1213,7 @@
     }
     .hero-content {
       width: 100%;
-      max-width: 340px;
+      max-width: 320px;
       transform: translateY(0);
       overflow: hidden;
     }
@@ -1220,16 +1223,16 @@
     }
     .hero-eyebrow {
       max-width: 300px;
-      font-size: 9px;
+      font-size: 8px;
       line-height: 1.7;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.14em;
       margin: 0 auto 20px;
     }
     .hero-title {
-      max-width: 330px;
+      max-width: 300px;
       margin-left: auto;
       margin-right: auto;
-      font-size: clamp(32px, 10.8vw, 42px);
+      font-size: clamp(30px, 10vw, 38px);
       line-height: 1.06;
     }
     .hero-subtitle {
@@ -1268,7 +1271,7 @@
       grid-template-rows: 330px auto;
     }
     .convener-photo {
-      object-position: 58% 0%;
+      object-position: 50% 18%;
     }
     .convener-details {
       padding: 24px;
@@ -1367,6 +1370,90 @@
       font-size: 10px;
     }
   }
+
+  html.force-mobile nav {
+    padding: 12px 18px;
+    background: rgba(8,8,8,0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(18px);
+  }
+  html.force-mobile .menu-toggle { display: block; }
+  html.force-mobile .nav-logo img { width: 58px; height: 50px; }
+  html.force-mobile .nav-links {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 18px;
+    z-index: 150;
+    width: min(232px, calc(100vw - 36px));
+    display: grid;
+    gap: 0;
+    padding: 10px;
+    background: #090909;
+    border: 1px solid rgba(232,119,34,0.25);
+    border-radius: 4px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.86);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+  }
+  html.force-mobile nav.menu-open .nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  html.force-mobile .nav-links a {
+    display: block;
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--cream);
+  }
+  html.force-mobile .hero {
+    min-height: 100vh;
+    padding: 100px 20px 96px;
+    justify-content: flex-start;
+  }
+  html.force-mobile .hero-content {
+    width: 100%;
+    max-width: 320px;
+    transform: translateY(0);
+    overflow: hidden;
+  }
+  html.force-mobile .hero-logo { width: min(220px, 58vw); margin-bottom: 18px; }
+  html.force-mobile .hero-eyebrow {
+    max-width: 300px;
+    font-size: 8px;
+    line-height: 1.7;
+    letter-spacing: 0.14em;
+    margin: 0 auto 20px;
+  }
+  html.force-mobile .hero-title {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(30px, 10vw, 38px);
+    line-height: 1.06;
+  }
+  html.force-mobile .hero-actions {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 14px;
+  }
+  html.force-mobile .btn-primary,
+  html.force-mobile .btn-ghost {
+    width: 100%;
+    text-align: center;
+    padding: 13px 20px;
+  }
+  html.force-mobile .section-inner { padding: 0 24px; max-width: 390px; }
+  html.force-mobile .intro-grid,
+  html.force-mobile .focus-header,
+  html.force-mobile .eligibility-grid,
+  html.force-mobile .process-steps,
+  html.force-mobile .footer-inner { grid-template-columns: 1fr; }
+  html.force-mobile .footer-inner { gap: 34px; }
 </style>
 </head>
 <body>
@@ -1380,10 +1467,10 @@
     <span></span>
   </button>
   <ul class="nav-links" id="nav-menu">
-    <li><a href="#about">About</a></li>
-    <li><a href="#focus">Programme</a></li>
-    <li><a href="#apply">Apply</a></li>
-        <li><a href="#apply" class="nav-cta">Get Notified</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="programme.html">Programme</a></li>
+    <li><a href="apply.html">Apply</a></li>
+        <li><a href="apply.html" class="nav-cta">Get Notified</a></li>
   </ul>
 </nav>
 
@@ -1395,8 +1482,8 @@
     <h1 class="hero-title">The <em>Vie</em> Mentorship</h1>
     <p class="hero-subtitle">Creating a pathway to the future</p>
     <div class="hero-actions">
-      <a href="#apply" class="btn-primary">Get Notified</a>
-      <a href="#about" class="btn-ghost">Learn More</a>
+      <a href="apply.html" class="btn-primary">Get Notified</a>
+      <a href="about.html" class="btn-ghost">Learn More</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -1413,7 +1500,7 @@
         <div class="intro-visual-box">
           <div class="convener-card">
             <div class="convener-photo-wrap">
-              <img class="convener-photo" src="assets/victor-ime-ekpo.jpeg" alt="Victor Ime Ekpo">
+              <img class="convener-photo" src="assets/victor-ime-ekpo-portrait.jpeg" alt="Victor Ime Ekpo">
             </div>
             <div class="convener-details">
               <p class="convener-kicker">Convener</p>
@@ -1547,10 +1634,11 @@
     </div>
     <h2 class="section-title reveal">The next cycle is <em>coming.</em></h2>
     <p class="section-body reveal">Application windows are announced per cycle. Drop your email and we'll let you know the moment applications open , no spam, just the signal.</p>
-    <div class="notify-form reveal">
-      <input class="notify-input" type="email" placeholder="your@email.com">
-      <button class="notify-btn">Notify Me</button>
-    </div>
+    <form class="notify-form reveal" action="https://formspree.io/f/mykalvnn" method="POST">
+      <input class="notify-input" type="email" name="email" placeholder="your@email.com" required>
+      <input type="hidden" name="_subject" value="New TVM homepage notification signup">
+      <button class="notify-btn" type="submit">Notify Me</button>
+    </form>
   </div>
 </section>
 
@@ -1571,9 +1659,9 @@
       </p>
       <ul class="footer-menu">
         <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#focus">Programme</a></li>
-        <li><a href="#apply">Apply</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="programme.html">Programme</a></li>
+        <li><a href="apply.html">Apply</a></li>
       </ul>
     </div>
     <div class="footer-contact">
@@ -1594,6 +1682,9 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+  if (window.screen && window.screen.width <= 600) {
+    document.documentElement.classList.add('force-mobile');
+  }
   // Nav scroll state
   const nav = document.getElementById('nav');
   const menuToggle = document.querySelector('.menu-toggle');
@@ -1637,18 +1728,5 @@
       }
     });
   }, { passive: true });
-
-  // Notify form
-  document.querySelector('.notify-btn').addEventListener('click', () => {
-    const input = document.querySelector('.notify-input');
-    if (input.value && input.value.includes('@')) {
-      input.value = '';
-      input.placeholder = "You're on the list ✓";
-      input.style.borderColor = 'rgba(74,222,128,0.4)';
-    } else {
-      input.style.borderColor = 'rgba(232,119,34,0.6)';
-      input.placeholder = 'Please enter a valid email';
-    }
-  });
   }); // DOMContentLoaded
 </script>
