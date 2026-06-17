@@ -363,6 +363,76 @@
     margin: 18px 0 26px;
   }
 
+  .placements {
+    padding: 112px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .placements-header {
+    max-width: 720px;
+    margin-bottom: 52px;
+  }
+
+  .placement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .placement-card {
+    min-height: 280px;
+    padding: 34px;
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(232,119,34,0.07), rgba(255,255,255,0.008) 48%),
+      var(--surface);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .placement-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    line-height: 1.16;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .placement-role {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 24px;
+  }
+
+  .placement-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    color: var(--cream-dim);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .placement-list li {
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .placement-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
   .team {
     padding: 112px 0;
   }
@@ -652,6 +722,100 @@
     .footer-copy { flex-direction: column; }
   }
 
+  @media (min-width: 701px) and (max-width: 1180px) {
+    .section-inner {
+      max-width: 920px;
+      padding: 0 30px;
+    }
+
+    .page-hero {
+      min-height: auto;
+      padding: 150px 0 88px;
+      align-items: center;
+    }
+
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 34px;
+    }
+
+    .hero-copy {
+      max-width: 900px;
+    }
+
+    .hero-copy .section-title {
+      max-width: 900px;
+      font-size: clamp(46px, 6vw, 58px);
+      line-height: 1.08;
+    }
+
+    .hero-aside {
+      max-width: 100%;
+      padding: 26px;
+    }
+
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .story-panel {
+      padding-left: 28px;
+    }
+
+    .founder-grid {
+      grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
+      gap: 40px;
+    }
+
+    .portrait-frame,
+    .portrait-frame img {
+      min-height: 520px;
+    }
+
+    .team-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .placement-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .placement-card {
+      min-height: 300px;
+      padding: 28px;
+    }
+
+    .placement-name {
+      font-size: 26px;
+    }
+
+    .team-photo {
+      height: 360px;
+    }
+
+    .team-content {
+      padding: 28px;
+    }
+
+    .team-name {
+      font-size: 26px;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 42px;
+      padding: 0 30px;
+    }
+
+    .footer-copy {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
   @media (max-width: 1024px), (max-device-width: 600px) {
     nav { padding: 12px 18px; }
     .nav-logo img { width: 58px; height: 50px; }
@@ -669,7 +833,7 @@
     .hero-copy .section-title { font-size: clamp(30px, 9vw, 36px); }
     .hero-aside { padding: 22px; }
     .aside-number { font-size: 54px; }
-    .why, .founder, .team { padding: 78px 0; }
+    .why, .founder, .placements, .team { padding: 78px 0; }
     .story-panel { padding-left: 20px; }
     .section-body { font-size: 14px; line-height: 1.8; }
     .portrait-frame { min-height: 500px; }
@@ -680,6 +844,9 @@
     .team-photo { height: 460px; }
     .team-photo.ifebukola img { object-position: 50% 16%; }
     .team-photo.david img { object-position: 50% 35%; }
+    .placement-grid { grid-template-columns: 1fr; gap: 14px; }
+    .placement-card { min-height: auto; padding: 26px; }
+    .placement-name { font-size: 26px; }
     .team-content { padding: 26px; }
     .team-name { font-size: 26px; }
     .footer-logo {
@@ -747,6 +914,7 @@
   html.force-mobile .hero-grid,
   html.force-mobile .why-grid,
   html.force-mobile .founder-grid,
+  html.force-mobile .placement-grid,
   html.force-mobile .team-grid,
   html.force-mobile .footer-inner { grid-template-columns: 1fr; gap: 34px; }
   html.force-mobile .section-title { font-size: clamp(32px, 10vw, 40px); max-width: 100%; }
@@ -870,6 +1038,49 @@
               David is a Nigerian lawyer focused on intellectual property and entertainment law. A 2024 mentee before TVM officially launched, he returns in 2026 as Head of Operations, bringing legal, advisory, and creative industry experience.
             </p>
           </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="placements">
+    <div class="section-inner">
+      <div class="placements-header reveal">
+        <p class="section-label">Mentee Placements</p>
+        <h2 class="section-title">Where TVM talent is already <em>showing up.</em></h2>
+        <p class="section-body">
+          Past mentees are building careers across publishing, artist advisory, creative businesses, and entertainment projects.
+        </p>
+      </div>
+      <div class="placement-grid">
+        <article class="placement-card reveal">
+          <div>
+            <h3 class="placement-name">David Afolabi</h3>
+            <p class="placement-role">Artist Advisory &amp; Management</p>
+          </div>
+          <ul class="placement-list">
+            <li>Previously worked with T-Classic.</li>
+            <li>Currently works with Famous Pluto and Zerrydl.</li>
+          </ul>
+        </article>
+        <article class="placement-card reveal">
+          <div>
+            <h3 class="placement-name">Ifebukola</h3>
+            <p class="placement-role">Creative Business &amp; Rights</p>
+          </div>
+          <ul class="placement-list">
+            <li>Works at Zaeda Oracle.</li>
+            <li>Supported rights clearance for Adekunle Gold's <em>Fuji</em> album.</li>
+          </ul>
+        </article>
+        <article class="placement-card reveal">
+          <div>
+            <h3 class="placement-name">Moteniola</h3>
+            <p class="placement-role">Music Publishing</p>
+          </div>
+          <ul class="placement-list">
+            <li>Currently works at Nexus Publishing.</li>
+          </ul>
         </article>
       </div>
     </div>
