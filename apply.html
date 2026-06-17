@@ -802,6 +802,58 @@
     .footer-copy { flex-direction: column; }
   }
 
+  @media (min-width: 701px) and (max-width: 1180px) {
+    .section-inner {
+      max-width: 920px;
+      padding: 0 30px;
+    }
+
+    .page-hero {
+      min-height: auto;
+      padding: 150px 0 92px;
+      align-items: center;
+    }
+
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .hero-copy .section-title {
+      font-size: clamp(44px, 5.8vw, 58px);
+      line-height: 1.08;
+    }
+
+    .apply-panel {
+      padding: 30px;
+    }
+
+    .apply-panel h3 {
+      font-size: 28px;
+    }
+
+    .apply-info-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .info-card {
+      padding: 28px;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 42px;
+      padding: 0 30px;
+    }
+
+    .footer-copy {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
   @media (max-width: 1024px), (max-device-width: 600px) {
     nav { padding: 12px 18px; }
     .nav-logo img { width: 58px; height: 50px; }
