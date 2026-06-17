@@ -540,6 +540,13 @@
     color: var(--cream);
   }
 
+  .review-quote.long {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--cream-dim);
+  }
+
   .review-name {
     margin-top: 28px;
     font-size: 11px;
@@ -777,6 +784,78 @@
     .footer-copy { flex-direction: column; }
   }
 
+  @media (min-width: 701px) and (max-width: 1180px) {
+    .section-inner {
+      max-width: 920px;
+      padding: 0 30px;
+    }
+
+    .page-hero {
+      min-height: auto;
+      padding: 150px 0 88px;
+      align-items: center;
+    }
+
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.68fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .hero-copy .section-title {
+      font-size: clamp(42px, 5.8vw, 56px);
+      line-height: 1.1;
+    }
+
+    .hero-aside {
+      padding: 26px;
+    }
+
+    .programme-stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 28px;
+    }
+
+    .curriculum-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .week-card {
+      min-height: 190px;
+      padding: 28px;
+    }
+
+    .week-topic {
+      font-size: 23px;
+    }
+
+    .review-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .review-card {
+      min-height: 270px;
+      padding: 30px;
+    }
+
+    .footer-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 42px;
+      padding: 0 30px;
+    }
+
+    .footer-copy {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
   @media (max-width: 1024px), (max-device-width: 600px) {
     nav { padding: 12px 18px; }
     .nav-logo img { width: 58px; height: 50px; }
@@ -816,6 +895,7 @@
     .week-topic { font-size: 23px; }
     .review-card { min-height: auto; padding: 26px; }
     .review-quote { font-size: 18px; }
+    .review-quote.long { font-size: 13px; line-height: 1.8; }
     .footer-logo {
       flex-direction: row;
       align-items: center;
@@ -889,6 +969,7 @@
   html.force-mobile .reviews-header .section-title { font-size: clamp(30px, 9.6vw, 38px); max-width: 100%; }
   html.force-mobile .section-body { font-size: 14px; line-height: 1.8; }
   html.force-mobile .review-quote { font-size: 18px; }
+  html.force-mobile .review-quote.long { font-size: 13px; line-height: 1.8; }
   html.force-mobile .footer-logo { flex-direction: row; align-items: center; gap: 14px; }
   html.force-mobile .footer-logo img { width: 72px; }
 </style>
@@ -995,8 +1076,8 @@
           <p class="review-name">Moteniola</p>
         </article>
         <article class="review-card reveal">
-          <p class="review-quote">"The sessions helped me understand entertainment law beyond definitions. I could finally see how rights, contracts, and business decisions connect in real client work."</p>
-          <p class="review-name">Kate</p>
+          <p class="review-quote long">"Joining the first VIE Mentorship Session cohort in 2024 was a defining moment in my journey. As a lawyer passionate about the music business, I had the interest but needed direction. Victor's mentorship gave me clarity, practical knowledge, and a strong foundation that still guides me today. Through the program, I was also introduced to Music Business for Africa, where I received a scholarship that helped me grow even further. Looking back, VIE came at the right time and helped shape the career I have today as a music business executive working on projects locally and internationally. I'm deeply grateful to Victor for his guidance, generosity, and commitment to raising the next generation through TVM."</p>
+          <p class="review-name">Ifebukola</p>
         </article>
         <article class="review-card reveal">
           <p class="review-quote">"TVM gave me structure, confidence, and practical language for the industry. The examples made negotiation and client advisory feel less intimidating."</p>
@@ -1087,4 +1168,3 @@
 </script>
 </body>
 </html>
- 
