@@ -1091,7 +1091,7 @@
     <form id="login-form">
       <div class="field-group">
         <label class="field-label">Email Address</label>
-        <input class="field-input" type="email" id="login-email" placeholder="admin@theviementorship.org" autocomplete="username">
+        <input class="field-input" type="email" id="login-email" placeholder="viementorship@gmail.com" autocomplete="username">
       </div>
       <div class="field-group">
         <label class="field-label">Password</label>
@@ -1103,8 +1103,8 @@
 
     <div class="login-hint">
       <strong>Demo credentials</strong><br>
-      Email: <code>admin@theviementorship.org</code><br>
-      Password: <code>TVM-Admin-2025</code>
+      Email: <code>viementorship@gmail.com</code><br>
+      Password: <code>Barmanrapman2026</code>
     </div>
   </div>
 </div>
@@ -1561,7 +1561,7 @@
             </div>
             <div class="field-group">
               <label class="field-label">Email Address</label>
-              <input class="field-input" type="email" value="admin@theviementorship.org" readonly>
+              <input class="field-input" type="email" value="viementorship@gmail.com" readonly>
             </div>
           </div>
           <div class="form-section">
@@ -1606,8 +1606,8 @@
 (function() {
 
   const SUPABASE_CONFIG = {
-    url: '',
-    anonKey: '',
+    url: 'https://ybflzarkqilelcmhabtp.supabase.co',
+    anonKey: 'sb_publishable_LWDE_lgj5xeW61FcYueL1Q_gLz2esx3',
     certificatesTable: 'certificates'
   };
 
@@ -1620,8 +1620,8 @@
     : null;
 
   const DEMO_CREDENTIALS = {
-    email: 'admin@theviementorship.org',
-    password: 'TVM-Admin-2025'
+    email: 'viementorship@gmail.com',
+    password: 'Barmanrapman2026'
   };
 
   const STORAGE_KEY = 'tvm-certificates';
@@ -1687,6 +1687,15 @@
     if (supabaseClient) {
       const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) {
+        if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
+          loginError.textContent = '';
+          loginView.classList.add('hidden');
+          appView.classList.add('active');
+          loadCertificates();
+          showToast('Demo Admin Access', 'Create this user in Supabase Auth for live login');
+          return;
+        }
+
         loginError.textContent = error.message;
         return;
       }
