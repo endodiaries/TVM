@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate of Completion — The Vie Mentorship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Petit+Formal+Script&family=Great+Vibes&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper:        #F4EAD5;
+    --paper-edge:   #EBDFC8;
+    --ink:          #1A1208;
+    --ink-soft:     #4A3A28;
+    --orange:       #E87722;
+    --orange-soft:  #C9712E;
+    --muted:        #9C8568;
+    --page-bg:      #080808;
+  }
+
+  html, body {
+    background: var(--page-bg);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    gap: 28px;
+  }
+
+  /* ══════════════════════════════════════
+     CERTIFICATE — A4 LANDSCAPE
+  ══════════════════════════════════════ */
+  .cert-viewport {
+    width: 1200px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .certificate {
+    width: 1200px;
+    height: 849px;
+    background: var(--paper);
+    position: relative;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+    overflow: hidden;
+    transform-origin: top left;
+  }
+
+  /* Subtle paper texture via layered gradient */
+  .certificate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(232,119,34,0.05) 0%, transparent 45%),
+      radial-gradient(ellipse at bottom right, rgba(232,119,34,0.04) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  /* ── Frame ── */
+  .frame-outer {
+    position: absolute;
+    inset: 26px;
+    border: 1.5px solid var(--ink);
+    pointer-events: none;
+  }
+
+  .frame-inner {
+    position: absolute;
+    inset: 38px;
+    border: 1px solid rgba(232,119,34,0.55);
+    pointer-events: none;
+  }
+
+  /* ── Corner ornaments ── */
+  .corner {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .corner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-color: var(--orange);
+    border-style: solid;
+    border-width: 0;
+  }
+
+  .corner::after {
+    content: '';
+    position: absolute;
+    inset: 9px;
+    border-color: var(--ink);
+    border-style: solid;
+    border-width: 0;
+  }
+
+  .corner.tl { top: 10px; left: 10px; }
+  .corner.tl::before { border-width: 2px 0 0 2px; }
+  .corner.tl::after { border-width: 1px 0 0 1px; }
+
+  .corner.tr { top: 10px; right: 10px; }
+  .corner.tr::before { border-width: 2px 2px 0 0; }
+  .corner.tr::after { border-width: 1px 1px 0 0; }
+
+  .corner.bl { bottom: 10px; left: 10px; }
+  .corner.bl::before { border-width: 0 0 2px 2px; }
+  .corner.bl::after { border-width: 0 0 1px 1px; }
+
+  .corner.br { bottom: 10px; right: 10px; }
+  .corner.br::before { border-width: 0 2px 2px 0; }
+  .corner.br::after { border-width: 0 1px 1px 0; }
+
+  /* ── Watermark ── */
+  .watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 560px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Content ── */
+  .cert-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 100px 54px;
+    text-align: center;
+  }
+
+  /* Header */
+  .cert-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cert-logo {
+    height: 92px;
+    width: auto;
+  }
+
+  .cert-org-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .cert-ornament-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2px;
+  }
+
+  .cert-ornament-line .bar {
+    width: 60px;
+    height: 1px;
+    background: var(--orange);
+    opacity: 0.7;
+  }
+
+  .cert-ornament-line .diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--orange);
+    transform: rotate(45deg);
+  }
+
+  /* Title block */
+  .cert-title-block {
+    margin-top: 22px;
+  }
+
+  .cert-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  .cert-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--orange-soft);
+    letter-spacing: 0.06em;
+    margin-top: 8px;
+  }
+
+  /* Body */
+  .cert-body {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    max-width: 760px;
+  }
+
+  .cert-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .cert-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 14px 0 12px;
+    padding-bottom: 14px;
+    border-bottom: 1.5px solid var(--orange);
+    display: inline-block;
+    min-width: 380px;
+  }
+
+  .cert-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin-top: 18px;
+    max-width: 620px;
+  }
+
+  .cert-description strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Footer — signatures + seal */
+  .cert-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 44px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .signature-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 240px;
+  }
+
+  .signature-script {
+    font-family: 'Great Vibes', cursive;
+    font-size: 26px;
+    color: var(--ink);
+    margin-bottom: 2px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .signature-line {
+    width: 100%;
+    height: 1px;
+    background: var(--ink);
+    opacity: 0.4;
+    margin-bottom: 8px;
+  }
+
+  .signature-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  .signature-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* Seal */
+  .seal {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: 1.5px solid var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    margin-bottom: 14px;
+  }
+
+  .seal::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1px dashed rgba(232,119,34,0.4);
+    border-radius: 50%;
+  }
+
+  .seal-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+  }
+
+  .seal-inner span {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+  }
+
+  .seal-inner small {
+    font-family: 'Inter', sans-serif;
+    font-size: 7px;
+    letter-spacing: 0.2em;
+    color: var(--orange-soft);
+    margin-top: 2px;
+  }
+
+  /* Verification strip */
+  .cert-verify-strip {
+    width: 100%;
+    margin-top: 28px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(26,18,8,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .verify-left {
+    text-align: left;
+  }
+
+  .verify-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .verify-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--orange-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .verify-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .verify-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  #qrcode {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    display: flex;
+  }
+
+  #qrcode img {
+    image-rendering: pixelated;
+  }
+
+  .verify-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    line-height: 1.7;
+    color: var(--muted);
+    text-align: left;
+    max-width: 160px;
+  }
+
+  /* ══════════════════════════════════════
+     SCREEN-ONLY CONTROLS
+  ══════════════════════════════════════ */
+  .screen-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-download {
+    background: var(--orange);
+    color: #080808;
+    border: none;
+    padding: 13px 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-download:hover {
+    background: #f08830;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(232,119,34,0.3);
+  }
+
+  .note {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: rgba(240,230,211,0.4);
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  /* ══════════════════════════════════════
+     PRINT
+  ══════════════════════════════════════ */
+  @media print {
+    @page { size: A4 landscape; margin: 0; }
+    html, body {
+      background: var(--paper);
+      padding: 0;
+      gap: 0;
+      min-height: auto;
+    }
+    .cert-viewport {
+      width: 100% !important;
+      height: 100vh !important;
+      overflow: visible;
+    }
+    .certificate {
+      width: 100%;
+      height: 100vh;
+      box-shadow: none;
+      transform: none !important;
+    }
+    .screen-controls, .note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="cert-viewport" id="cert-viewport">
+  <div class="certificate" id="certificate">
+    <img class="watermark" src="assets/tvm-logo-transparent.png" alt="The Vie Mentorship">
+
+    <div class="frame-outer"></div>
+    <div class="frame-inner"></div>
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <div class="cert-content">
+
+      <div class="cert-header">
+        <img class="cert-logo" src="assets/tvm-logo-transparent.png" alt="The Vie Mentorship">
+        <div class="cert-org-name">The Vie Mentorship</div>
+        <div class="cert-ornament-line">
+          <span class="bar"></span>
+          <span class="diamond"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <div class="cert-title-block">
+        <h1 class="cert-title">Certificate of Completion</h1>
+        <p class="cert-subtitle">Entertainment Law Mentorship · Music &amp; Film</p>
+      </div>
+
+      <div class="cert-body">
+        <p class="cert-intro">This is to certify that</p>
+        <h2 class="cert-name" id="cert-name">Amara Okonkwo</h2>
+        <p class="cert-description">
+          has successfully completed the <strong id="cert-track">Music and Film Law</strong> track of
+          The Vie Mentorship's <strong id="cert-cycle">Cycle III · 2026</strong> programme,
+          demonstrating dedication, professionalism, and a commitment to excellence in
+          entertainment law across Nigeria and Africa.
+        </p>
+      </div>
+
+      <div class="cert-footer">
+        <div class="seal">
+          <div class="seal-inner">
+            <span>TVM</span>
+            <small>EST. 2025</small>
+          </div>
+        </div>
+
+        <div class="signature-block">
+          <div class="signature-script" id="mentor-signature">Victor Ekpo</div>
+          <div class="signature-line"></div>
+          <div class="signature-name" id="mentor-name">Victor Ime Ekpo</div>
+          <div class="signature-title" id="mentor-title">Founder &amp; Convener, The Vie Mentorship</div>
+        </div>
+      </div>
+
+      <div class="cert-verify-strip">
+        <div class="verify-left">
+          <div class="verify-label">Certificate ID</div>
+          <div class="verify-id" id="cert-id">TVM-2026-0001</div>
+          <div class="verify-date" id="cert-date">Issued 20 July 2026</div>
+        </div>
+        <div class="verify-right">
+          <div id="qrcode"></div>
+          <div class="verify-text">Scan or visit theviementorship.org/verify.html to confirm authenticity</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+  <div class="screen-controls">
+    <button class="btn-download" onclick="window.print()">Download / Print Certificate</button>
+  </div>
+  <p class="note">
+    This certificate auto-fills from URL parameters (name, track, cycle, id, date, mentor, mentorTitle, signature)
+    so the admin panel can generate one per recipient. Showing sample data for Amara Okonkwo, TVM-2026-0001.
+  </p>
+
+  <script>
+    (function() {
+      // Responsive scaling: shrink the fixed 1200x849 certificate to fit small screens
+      function scaleCertificate() {
+        const viewport = document.getElementById('cert-viewport');
+        const certificate = document.getElementById('certificate');
+        const CERT_WIDTH = 1200;
+        const CERT_HEIGHT = 849;
+
+        const horizontalPadding = 40; // matches body side padding total
+        const available = Math.min(window.innerWidth - horizontalPadding, CERT_WIDTH);
+        const scale = Math.min(available / CERT_WIDTH, 1);
+
+        certificate.style.transform = 'scale(' + scale + ')';
+        viewport.style.width = (CERT_WIDTH * scale) + 'px';
+        viewport.style.height = (CERT_HEIGHT * scale) + 'px';
+      }
+
+      window.addEventListener('resize', scaleCertificate);
+      window.addEventListener('orientationchange', scaleCertificate);
+      scaleCertificate();
+
+      const params = new URLSearchParams(window.location.search);
+
+      const map = {
+        name: 'cert-name',
+        track: 'cert-track',
+        cycle: 'cert-cycle',
+        id: 'cert-id',
+        mentor: 'mentor-name',
+        mentorTitle: 'mentor-title',
+        signature: 'mentor-signature'
+      };
+
+      Object.keys(map).forEach(key => {
+        const value = params.get(key);
+        if (value) {
+          const el = document.getElementById(map[key]);
+          if (el) el.textContent = value;
+        }
+      });
+
+      // Date formatting
+      const dateParam = params.get('date');
+      if (dateParam) {
+        const d = new Date(dateParam);
+        if (!isNaN(d)) {
+          const formatted = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+          document.getElementById('cert-date').textContent = 'Issued ' + formatted;
+        }
+      } else {
+        document.getElementById('cert-date').textContent = 'Issued 20 July 2026';
+      }
+
+      // QR code -> verification URL
+      const certId = document.getElementById('cert-id').textContent.trim();
+      const verifyUrl = new URL('verify.html', window.location.href);
+      verifyUrl.searchParams.set('id', certId);
+
+      new QRCode(document.getElementById('qrcode'), {
+        text: verifyUrl.href,
+        width: 64,
+        height: 64,
+        colorDark: '#1A1208',
+        colorLight: '#F4EAD5',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    })();
+  </script>
+
+</body>
+</html>
