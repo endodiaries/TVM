@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Certificate - The Vie Mentorship</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #080808;
+    --surface: #111111;
+    --surface-2: #191919;
+    --border: rgba(255,255,255,0.08);
+    --orange: #E87722;
+    --cream: #F0E6D3;
+    --cream-dim: #C8B89A;
+    --text-muted: rgba(240,230,211,0.48);
+    --green: #4ade80;
+    --red: #f87171;
+  }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 20% 18%, rgba(232,119,34,0.18), transparent 28%),
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+      var(--black);
+    background-size: auto, 80px 80px, 80px 80px, auto;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+  }
+  .page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 42px 22px;
+  }
+  .shell {
+    width: min(100%, 760px);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 34px;
+  }
+  .brand img {
+    width: 84px;
+    height: auto;
+    filter: drop-shadow(0 0 24px rgba(232,119,34,0.22));
+  }
+  .brand-text {
+    display: grid;
+    gap: 4px;
+  }
+  .brand-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--cream);
+  }
+  .brand-sub {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+  .panel {
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)),
+      var(--surface);
+    border-radius: 6px;
+    padding: clamp(26px, 5vw, 48px);
+    box-shadow: 0 24px 90px rgba(0,0,0,0.45);
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 38px;
+    height: 1px;
+    background: var(--orange);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 62px);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  h1 em {
+    color: var(--orange);
+    font-style: italic;
+  }
+  .intro {
+    max-width: 600px;
+    color: var(--cream-dim);
+    line-height: 1.8;
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+  .verify-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  input {
+    min-height: 54px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: rgba(8,8,8,0.58);
+    color: var(--cream);
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  input:focus {
+    border-color: rgba(232,119,34,0.6);
+  }
+  button {
+    min-height: 54px;
+    border: 1px solid var(--orange);
+    border-radius: 3px;
+    background: var(--orange);
+    color: var(--black);
+    padding: 0 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .result {
+    display: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface-2);
+    padding: 24px;
+  }
+  .result.show { display: block; }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .status.valid { color: var(--green); }
+  .status.revoked, .status.missing { color: var(--red); }
+  .cert-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .cert-meta {
+    color: var(--cream-dim);
+    line-height: 1.85;
+    font-size: 14px;
+  }
+  .cert-id {
+    margin-top: 20px;
+    color: var(--orange);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .note {
+    margin-top: 24px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  @media (max-width: 620px) {
+    .brand img { width: 68px; }
+    .verify-form { grid-template-columns: 1fr; }
+    button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="shell">
+    <div class="brand">
+      <img src="assets/tvm-logo-transparent.png" alt="The Vie Mentorship">
+      <div class="brand-text">
+        <div class="brand-title">The Vie Mentorship</div>
+        <div class="brand-sub">Certificate Verification</div>
+      </div>
+    </div>
+
+    <section class="panel">
+      <p class="eyebrow">Verify</p>
+      <h1>Check a TVM <em>certificate.</em></h1>
+      <p class="intro">
+        Enter the certificate ID exactly as it appears on the certificate. Valid certificates will show the recipient, programme cycle, track, and issue date.
+      </p>
+
+      <form class="verify-form" id="verify-form">
+        <input id="certificate-id" type="text" placeholder="TVM-2026-0001" autocomplete="off">
+        <button type="submit">Verify</button>
+      </form>
+
+      <div class="result" id="result"></div>
+      <p class="note">
+        Verification is powered by The Vie Mentorship certificate registry. If you believe a certificate should be valid, contact viementorship@gmail.com.
+      </p>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function() {
+  const SUPABASE_CONFIG = {
+    url: '',
+    anonKey: '',
+    certificatesTable: 'certificates'
+  };
+
+  const sampleCertificates = [
+    { id: 'TVM-2025-0001', name: 'Amara Okonkwo', track: 'Music Law', cycle: 'Cycle I · 2025', date: '2025-11-14', status: 'Active' }
+  ];
+
+  const supabaseClient = (
+    SUPABASE_CONFIG.url &&
+    SUPABASE_CONFIG.anonKey &&
+    window.supabase
+  )
+    ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey)
+    : null;
+
+  const form = document.getElementById('verify-form');
+  const input = document.getElementById('certificate-id');
+  const result = document.getElementById('result');
+  const params = new URLSearchParams(window.location.search);
+
+  function renderMissing(id, message) {
+    result.className = 'result show';
+    result.innerHTML = `
+      <div class="status missing">Not Verified</div>
+      <div class="cert-name">Certificate not found</div>
+      <div class="cert-meta">${message}</div>
+      <div class="cert-id">${id || 'No certificate ID entered'}</div>
+    `;
+  }
+
+  function renderCertificate(cert) {
+    const active = cert.status === 'Active';
+    result.className = 'result show';
+    result.innerHTML = `
+      <div class="status ${active ? 'valid' : 'revoked'}">${active ? 'Verified Certificate' : 'Revoked Certificate'}</div>
+      <div class="cert-name">${cert.name}</div>
+      <div class="cert-meta">
+        ${cert.track || 'Programme completion'}<br>
+        ${cert.cycle || 'The Vie Mentorship'}<br>
+        Issued ${cert.date || 'date unavailable'}
+      </div>
+      <div class="cert-id">${cert.id}</div>
+    `;
+  }
+
+  async function verifyCertificate(id) {
+    const certId = id.trim().toUpperCase();
+    if (!certId) {
+      renderMissing('', 'Please enter a certificate ID to verify.');
+      return;
+    }
+
+    if (supabaseClient) {
+      const { data, error } = await supabaseClient
+        .from(SUPABASE_CONFIG.certificatesTable)
+        .select('*')
+        .eq('id', certId)
+        .maybeSingle();
+
+      if (error) {
+        renderMissing(certId, error.message);
+        return;
+      }
+
+      if (!data) {
+        renderMissing(certId, 'No certificate exists with this ID in the TVM registry.');
+        return;
+      }
+
+      renderCertificate(data);
+      return;
+    }
+
+    const cert = sampleCertificates.find(item => item.id === certId);
+    if (cert) renderCertificate(cert);
+    else renderMissing(certId, 'Supabase has not been configured yet, so only sample certificates can be checked.');
+  }
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    verifyCertificate(input.value);
+  });
+
+  const idFromUrl = params.get('id');
+  if (idFromUrl) {
+    input.value = idFromUrl;
+    verifyCertificate(idFromUrl);
+  }
+})();
+</script>
+</body>
+</html>
