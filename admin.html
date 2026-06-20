@@ -1799,7 +1799,15 @@ emailjs.init('vwxZTqH7e4fMw6Qb6');
     if (!name || !email) return;
 
     const cycleYear = cycle.split('·')[1] ? cycle.split('·')[1].trim() : '2025';
-    const id = nextCertId(cycleYear, true);
+    const { data: idData, error: idError } = await supabaseClient
+  .rpc('generate_certificate_id', { cycle_year: cycleYear });
+
+if (idError) {
+  showToast('ID Generation Failed', idError.message);
+  return;
+}
+
+const id = idData;
 
     const record = { id, name, email, location, track, cycle, mentor, date, status: 'Active' };
 
