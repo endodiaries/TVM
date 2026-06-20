@@ -1804,19 +1804,33 @@
     const record = { id, name, email, location, track, cycle, mentor, date, status: 'Active' };
 
     if (supabaseClient) {
-      const { error } = await supabaseClient
-        .from(SUPABASE_CONFIG.certificatesTable)
-        .insert([record]);
+        const { error } = await supabaseClient
+          .from(SUPABASE_CONFIG.certificatesTable)
+          .insert([record]);
 
-      if (error) {
-        showToast('Issue Failed', error.message);
-        return;
+        if (error) {
+          showToast('Issue Failed', error.message);
+          return;
+        }
+
+        emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', {
+          to_email: email,
+          to_name: name,
+          certificate_id: id,
+          track: track,
+          cycle: cycle,
+          verify_link: 'https://viementorship.org/verify?id=' + id
+        }).then(function() {
+          console.log('Certificate email sent');
+        }).catch(function(error) {
+          console.error('Email send failed:', error);
+        });
+
+        await loadCertificates();
+      } else {
+        certificates.unshift(record);
+        await saveCertificates();
       }
-
-      await loadCertificates();
-    } else {
-      certificates.unshift(record);
-      await saveCertificates();
     }
 
     renderAll();
