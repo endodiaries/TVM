@@ -1105,11 +1105,6 @@
       <button type="submit" class="login-btn">Sign In</button>
       <p class="login-error" id="login-error"></p>
     </form>
-<div class="login-hint">
-      <strong>Demo credentials</strong><br>
-      Email: <code>viementorship@gmail.com</code><br>
-      Password: <code>Victormentees2026!</code>
-    </div>
   </div>
 </div>
 <!-- ══════════════════════════════════════
@@ -1624,11 +1619,6 @@ emailjs.init('vwxZTqH7e4fMw6Qb6');
     ? window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey)
     : null;
 
-  const DEMO_CREDENTIALS = {
-    email: 'viementorship@gmail.com',
-    password: 'Victormentees2026!'
-  };
-
   const STORAGE_KEY = 'tvm-certificates';
 
   const SAMPLE_CERTS = [
@@ -1692,16 +1682,7 @@ emailjs.init('vwxZTqH7e4fMw6Qb6');
     if (supabaseClient) {
       const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) {
-        if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
-          loginError.textContent = '';
-          loginView.classList.add('hidden');
-          appView.classList.add('active');
-          loadCertificates();
-          showToast('Demo Admin Access', 'Create this user in Supabase Auth for live login');
-          return;
-        }
-
-        loginError.textContent = error.message;
+    loginError.textContent = error.message;
         return;
       }
 
@@ -1710,15 +1691,6 @@ emailjs.init('vwxZTqH7e4fMw6Qb6');
       appView.classList.add('active');
       loadCertificates();
       return;
-    }
-
-    if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
-      loginError.textContent = '';
-      loginView.classList.add('hidden');
-      appView.classList.add('active');
-      loadCertificates();
-    } else {
-      loginError.textContent = 'Invalid email or password. Please use the demo credentials below, or configure Supabase.';
     }
   });
 
