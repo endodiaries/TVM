@@ -1821,13 +1821,24 @@ const id = idData;
           return;
         }
 
-        emailjs.send('service_ub5fp1x', 'template_ivmr2dp', {
-          to_email: email,
-          to_name: name,
-          certificate_id: id,
-          track: track,
-          cycle: cycle,
-          verify_link: 'https://viementorship.org/verify?id=' + id
+        const certificateUrl = new URL('certificate.html', window.location.href);
+certificateUrl.searchParams.set('name', name);
+certificateUrl.searchParams.set('track', track);
+certificateUrl.searchParams.set('cycle', cycle);
+certificateUrl.searchParams.set('id', id);
+certificateUrl.searchParams.set('date', date);
+certificateUrl.searchParams.set('mentor', 'Victor Ime Ekpo');
+certificateUrl.searchParams.set('mentorTitle', 'Founder & Convener, The Vie Mentorship');
+certificateUrl.searchParams.set('signature', 'Victor Ekpo');
+
+emailjs.send('service_ub5fp1x', 'template_ivmr2dp', {
+  to_email: email,
+  to_name: name,
+  certificate_id: id,
+  track: track,
+  cycle: cycle,
+  verify_link: 'https://viementorship.org/verify?id=' + id,
+  certificate_link: certificateUrl.href
         }).then(function() {
           console.log('Certificate email sent');
         }).catch(function(error) {
