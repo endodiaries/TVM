@@ -474,27 +474,46 @@
   /* ══════════════════════════════════════
      PRINT
   ══════════════════════════════════════ */
-  @media print {
-    @page { size: A4 landscape; margin: 0; }
-    , body {
-      background: var(--paper);
-      padding: 0;
-      gap: 0;
-      min-height: auto;
-    }
-    .cert-viewport {
-      width: 100% !important;
-      height: 100vh !important;
-      overflow: visible;
-    }
-    .certificate {
-      width: 100%;
-      height: 100vh;
-      box-shadow: none;
-      transform: none !important;
-    }
-    .screen-controls, .note { display: none; }
+ @media print {
+  @page { size: A4 landscape; margin: 0; }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
+
+  html, body {
+    background: var(--paper);
+    width: 297mm;
+    height: 210mm;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+    min-height: auto;
+    display: block;
+    overflow: hidden;
+  }
+
+  .cert-viewport {
+    width: 297mm !important;
+    height: 210mm !important;
+    overflow: visible;
+    margin: 0 !important;
+  }
+
+  .certificate {
+    width: 297mm !important;
+    height: 210mm !important;
+    box-shadow: none;
+    transform: none !important;
+    transform-origin: top left;
+  }
+
+  .screen-controls,
+  .note {
+    display: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -571,7 +590,14 @@
   </div>
 
   <div class="screen-controls">
-    <button class="btn-download" onclick="window.print()">Download / Print Certificate</button>
+    window.printCertificate = function() {
+  const certificate = document.getElementById('certificate');
+  certificate.style.transform = 'none';
+  window.print();
+  setTimeout(scaleCertificate, 250);
+};
+
+window.addEventListener('afterprint', scaleCertificate);
   </div>
   <p class="note">
     This certificate auto-fills from URL parameters (name, track, cycle, id, date, mentor, mentorTitle, signature)
