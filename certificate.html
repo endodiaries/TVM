@@ -590,14 +590,7 @@
   </div>
 
   <div class="screen-controls">
-    window.printCertificate = function() {
-  const certificate = document.getElementById('certificate');
-  certificate.style.transform = 'none';
-  window.print();
-  setTimeout(scaleCertificate, 250);
-};
-
-window.addEventListener('afterprint', scaleCertificate);
+   <button class="btn-download" onclick="printCertificate()">Download / Print Certificate</button>
   </div>
   <p class="note">
     This certificate auto-fills from URL parameters (name, track, cycle, id, date, mentor, mentorTitle, signature)
@@ -625,7 +618,19 @@ window.addEventListener('afterprint', scaleCertificate);
       window.addEventListener('resize', scaleCertificate);
       window.addEventListener('orientationchange', scaleCertificate);
       scaleCertificate();
+     window.printCertificate = function() {
+      const certificate = document.getElementById('certificate');
 
+  if (certificate) {
+    certificate.style.transform = 'none';
+  }
+
+  window.print();
+};
+
+window.addEventListener('afterprint', function() {
+  scaleCertificate();
+});
       const params = new URLSearchParams(window.location.search);
 
       const map = {
