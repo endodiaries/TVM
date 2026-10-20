@@ -1000,12 +1000,13 @@
             Add your email below and we will send a note when applications open.
           </p>
           <div class="form-placeholder">
-            <form class="notify-form" action="https://formspree.io/f/mykalvnn" method="POST">
-             <label for="notify-name">Full name</label>
-<input id="notify-name" type="text" name="full_name" placeholder="Your full name" required>
-              <label for="notify-email">Email address</label>
-              <input id="notify-email" type="email" name="email" placeholder="your@email.com" required>
-              <input type="hidden" name="_subject" value="New TVM application notification signup">
+           <form class="notify-form" action="https://splitforms.com/api/submit" method="POST">
+  <input type="hidden" name="access_key" value="d96c6dfe788f43ea92a83cc36f971baa">
+  <label for="notify-name">Full name</label>
+  <input id="notify-name" type="text" name="name" autocomplete="name" placeholder="Your full name" required>
+  <label for="notify-email">Email address</label>
+  <input id="notify-email" type="email" name="email" autocomplete="email" placeholder="your@email.com" required>
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
               <button class="notify-submit" type="submit">Notify Me</button>
               <p class="form-note">No spam. Just the application update when the next cycle opens.</p>
             </form>
@@ -1148,6 +1149,7 @@
 
     reveals.forEach(item => observer.observe(item));
   });
-</script>
+  </script>
+  <script src="https://splitforms.com/embed.js" async></script>
 </body>
 </html>
