@@ -1735,10 +1735,13 @@
     </div>
     <h2 class="section-title reveal">The next cycle is <em>coming.</em></h2>
     <p class="section-body reveal">Application windows are announced per cycle. Drop your email and we'll let you know the moment applications open , no spam, just the signal.</p>
-    <form class="notify-form reveal" action="https://formspree.io/f/mykalvnn" method="POST">
-      <input class="notify-input" type="text" name="full_name" placeholder="Full name" required>
-      <input class="notify-input" type="email" name="email" placeholder="your@email.com" required>
-      <input type="hidden" name="_subject" value="New TVM homepage notification signup">
+    <form class="notify-form" action="https://splitforms.com/api/submit" method="POST">
+  <input type="hidden" name="access_key" value="d96c6dfe788f43ea92a83cc36f971baa">
+  <label for="notify-name">Full name</label>
+  <input id="notify-name" type="text" name="name" autocomplete="name" placeholder="Your full name" required>
+  <label for="notify-email">Email address</label>
+  <input id="notify-email" type="email" name="email" autocomplete="email" placeholder="your@email.com" required>
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <button class="notify-btn" type="submit">Notify Me</button>
     </form>
   </div>
